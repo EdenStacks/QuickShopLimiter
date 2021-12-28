@@ -1,0 +1,9 @@
+name: QuickShopLimiter
+version: '${project.version}'
+main: fr.edencraft.quickshoplimiter.QuickShopLimiter
+api-version: 1.17
+prefix: QuickShopLimiter
+depend: [ QuickShop ]
+authors: [ NayeOne ]
+description: Allow to add limits on shops.
+website: https://github.com/EdenStacks
