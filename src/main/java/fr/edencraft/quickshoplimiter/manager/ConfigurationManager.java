@@ -1,5 +1,6 @@
 package fr.edencraft.quickshoplimiter.manager;
 
+import fr.edencraft.quickshoplimiter.filler.ConfigFiller;
 import fr.edencraft.quickshoplimiter.filler.ShopsFiller;
 import fr.edencraft.quickshoplimiter.filler.StorageFiller;
 import fr.edencraft.quickshoplimiter.utils.CFGFiller;
@@ -37,7 +38,7 @@ public class ConfigurationManager {
         }
         initNewFile("Shops.yml", new ShopsFiller());
         initNewFile("Storage.yml", new StorageFiller());
-        initNewFile("config.yml", new StorageFiller());
+        initNewFile("config.yml", new ConfigFiller());
     }
 
     public void initNewFile(String fileName, CFGFiller filler){

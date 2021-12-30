@@ -23,6 +23,16 @@ public class CommandManager {
                     return CommandCompletionUtils.getConfigurationFilesName();
                 }
         );
+        commandManager.getCommandCompletions().registerAsyncCompletion(
+                "listLimitedShopID",
+                context -> {
+                    if (context.getPlayer() != null) {
+                        Player player = context.getPlayer();
+                        player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1, 1);
+                    }
+                    return CommandCompletionUtils.getAllLimitedShopID();
+                }
+        );
     }
 
 }

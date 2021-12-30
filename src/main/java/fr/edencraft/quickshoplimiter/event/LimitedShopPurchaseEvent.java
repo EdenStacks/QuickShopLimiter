@@ -1,26 +1,38 @@
 package fr.edencraft.quickshoplimiter.event;
 
-import org.bukkit.entity.Player;
+import fr.edencraft.quickshoplimiter.utils.LimitedShop;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.maxgamer.quickshop.event.ShopPurchaseEvent;
+
+import java.util.UUID;
 
 public class LimitedShopPurchaseEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean isCancelled = false;
 
-    private @NotNull final Player purchaser;
+    private @NotNull final UUID purchaser;
+    private final LimitedShop limitedShop;
+    private final ShopPurchaseEvent shopPurchaseEvent;
+
 
     /**
      * Build LimitedShop purchase event.
      * If this event is cancelled, i'll cancel the purchase.
      *
-     * @param purchaser The player who purchase in a limited shop.
+     * @param purchaser The player's {@link UUID} who purchase in a {@link LimitedShop}.
+     * @param limitedShop The {@link LimitedShop}.
+     * @param shopPurchaseEvent The {@link ShopPurchaseEvent}.
      */
-    public LimitedShopPurchaseEvent(@NotNull Player purchaser) {
+    public LimitedShopPurchaseEvent(@NotNull UUID purchaser,
+                                    LimitedShop limitedShop,
+                                    ShopPurchaseEvent shopPurchaseEvent) {
         this.purchaser = purchaser;
+        this.limitedShop = limitedShop;
+        this.shopPurchaseEvent = shopPurchaseEvent;
     }
 
     @Override
@@ -32,8 +44,12 @@ public class LimitedShopPurchaseEvent extends Event implements Cancellable {
         return handlers;
     }
 
-    public @NotNull Player getPurchaser() {
+    public @NotNull UUID getPurchaser() {
         return purchaser;
+    }
+
+    public LimitedShop getLimitedShop() {
+        return limitedShop;
     }
 
     @Override
@@ -44,5 +60,9 @@ public class LimitedShopPurchaseEvent extends Event implements Cancellable {
     @Override
     public void setCancelled(boolean cancel) {
         isCancelled = cancel;
+    }
+
+    public ShopPurchaseEvent getShopPurchaseEvent() {
+        return shopPurchaseEvent;
     }
 }

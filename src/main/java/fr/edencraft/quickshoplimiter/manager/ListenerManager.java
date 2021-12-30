@@ -1,5 +1,6 @@
 package fr.edencraft.quickshoplimiter.manager;
 
+import fr.edencraft.quickshoplimiter.listener.quickshop.ShopDelete;
 import fr.edencraft.quickshoplimiter.listener.quickshop.ShopPurchase;
 import fr.edencraft.quickshoplimiter.listener.quickshoplimiter.LimitedShopPurchase;
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ public class ListenerManager {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new ShopPurchase(), plugin);
         pm.registerEvents(new LimitedShopPurchase(), plugin);
+        pm.registerEvents(new ShopDelete(), plugin);
 
     }
 }

@@ -1,11 +1,12 @@
 package fr.edencraft.quickshoplimiter.utils;
 
 import fr.edencraft.quickshoplimiter.QuickShopLimiter;
+import fr.edencraft.quickshoplimiter.manager.ConfigurationManager;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.maxgamer.quickshop.shop.Shop;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -93,13 +94,28 @@ public class LimitedShop {
     }
 
     /**
+     * Be careful, this method will return a wrong value of the {@link LimitationType}
+     * is not <b>SERVER</b>.
+     *
+     * @return The traded amount by the server in this {@link LimitedShop}.
+     */
+    public int getTradeAmountServer() {
+        ConfigurationSection storageSection = getStorageSection();
+        return storageSection.getInt("traded-amount");
+    }
+
+    /**
      * @return The storage section of this {@link LimitedShop}.
      */
     private ConfigurationSection getStorageSection() {
-        return ConfigurationUtils.getConfigurationSection(
-                "Storage.yml",
-                "storage." + getShopID()
-        );
+        ConfigurationManager cm = QuickShopLimiter.getINSTANCE().getConfigurationManager();
+        FileConfiguration cfg = cm.getConfigurationFile("Storage.yml");
+
+        if (!cfg.isConfigurationSection("storage." + getShopID())) {
+            cfg.createSection("storage." + getShopID());
+        }
+
+        return cfg.getConfigurationSection("storage." + getShopID());
     }
 
     public Shop getShop() {

@@ -8,6 +8,7 @@ public class ConfigFiller implements CFGFiller {
     @Override
     public void fill(FileConfiguration fileConfiguration) {
         fileConfiguration.set("language", "fr");
+        fileConfiguration.set("time-zone", "Europe/Paris");
     }
 
 }
