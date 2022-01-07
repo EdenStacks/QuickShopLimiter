@@ -1,6 +1,10 @@
 package fr.edencraft.quickshoplimiter.lang;
 
 import fr.edencraft.quickshoplimiter.utils.ColoredText;
+import fr.edencraft.quickshoplimiter.utils.LimitationType;
+import fr.edencraft.quickshoplimiter.utils.LimitedShop;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -81,6 +85,39 @@ public class English implements Language {
     public String getLimitedShopCreated() {
         return prefix + new ColoredText(
                 "&aShop created with success."
+        ).treat();
+    }
+
+    @Override
+    public String getCanNotResetForThisLimitationType(LimitedShop limitedShop, LimitationType limitationType) {
+        return prefix + new ColoredText(
+                "&cYou can't reset player limit for shop n°&6" + limitedShop.getShopID() +
+                        " &cbecause his limitation type is &6" + limitationType.name() + "&c."
+        ).treat();
+    }
+
+    @Override
+    public String getPlayerDoesNotHaveTradeYet(LimitedShop limitedShop, OfflinePlayer playerToReset) {
+        return prefix + new ColoredText(
+                "&6You can't reset limit of &e" + playerToReset.getName() + " &6because he has not trade with the shop" +
+                        "n°&e" + limitedShop.getShopID() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getLimitedShopReset(LimitedShop limitedShop, OfflinePlayer playerToReset) {
+        String playerName = playerToReset == null ? "all" : playerToReset.getName();
+
+        return prefix + new ColoredText(
+                "&aYou had reset limit for &e" + playerName + " &afor the shop n°&e" +
+                        limitedShop.getShopID() + "&a."
+        ).treat();
+    }
+
+    @Override
+    public String getPlayerNeverPlayed(String playerName) {
+        return prefix + new ColoredText(
+                "&cPlayer &6" + playerName + " &chas never played on the server."
         ).treat();
     }
 

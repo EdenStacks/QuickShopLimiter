@@ -10,8 +10,11 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Nullable;
+import org.maxgamer.quickshop.api.QuickShopAPI;
 import org.maxgamer.quickshop.shop.Shop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
@@ -121,6 +124,57 @@ public class ConfigurationUtils {
             if (location.equals(shop.getLocation())) id.set(s);
         });
         return id.get();
+    }
+
+    /**
+     * This method return in a list all {@link LimitedShop} registered in Shops.yml.
+     * The returned list can be empty.
+     *
+     * @return The list of all {@link LimitedShop}.
+     */
+    public static List<LimitedShop> getAllLimitedShop() {
+        FileConfiguration shopsCFG = CM.getConfigurationFile("Shops.yml");
+        ConfigurationSection shopsSection = shopsCFG.getConfigurationSection("shops");
+        assert shopsSection != null;
+
+        List<LimitedShop> list = new ArrayList<>();
+
+        shopsSection.getKeys(false).forEach(id -> {
+            ConfigurationSection shopSection = shopsSection.getConfigurationSection(id);
+            assert shopSection != null;
+
+            String worldName = shopSection.getString("location.world");
+            assert worldName != null;
+
+            World world = Bukkit.getWorld(worldName);
+            double x = shopSection.getDouble("location.x");
+            double y = shopSection.getDouble("location.y");
+            double z = shopSection.getDouble("location.z");
+
+            Location shopLocation = new Location(world, x, y, z);
+
+            assert QuickShopAPI.getShopAPI() != null;
+            if (QuickShopAPI.getShopAPI().getShop(shopLocation).isPresent()) {
+                Shop shop = QuickShopAPI.getShopAPI().getShop(shopLocation).get();
+                list.add(new LimitedShop(shop, shopSection));
+            }
+        });
+
+        return list;
+    }
+
+    /**
+     * @param shopID The shop ID of the {@link LimitedShop}
+     * @return The limited shop, null if no limited shop exist with this ID.
+     */
+    @Nullable
+    public static LimitedShop getLimitedShop(String shopID) {
+        List<LimitedShop> allLimitedShop = getAllLimitedShop();
+
+        for (LimitedShop limitedShop : allLimitedShop) {
+            if (limitedShop.getShopID().equalsIgnoreCase(shopID)) return limitedShop;
+        }
+        return null;
     }
 
 

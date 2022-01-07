@@ -1,6 +1,11 @@
 package fr.edencraft.quickshoplimiter.lang;
 
+import co.aikar.commands.annotation.Optional;
 import fr.edencraft.quickshoplimiter.QuickShopLimiter;
+import fr.edencraft.quickshoplimiter.utils.LimitationType;
+import fr.edencraft.quickshoplimiter.utils.LimitedShop;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -87,5 +92,42 @@ public interface Language {
      * @return The message in a specific language.
      */
     String getLimitedShopCreated();
+
+    /**
+     * This messages is called when player try to reset a player log whereas the limitation type of this
+     * limited shop is SERVER.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param limitationType Limitation type of the limited shop.
+     * @return The message in a specific language.
+     */
+    String getCanNotResetForThisLimitationType(LimitedShop limitedShop, LimitationType limitationType);
+
+    /**
+     * This messages is called when player try to reset a player log that have not trade with the limited shop.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param playerToReset Player that have not trade with the limited shop.
+     * @return The message in a specific language.
+     */
+    String getPlayerDoesNotHaveTradeYet(LimitedShop limitedShop, OfflinePlayer playerToReset);
+
+    /**
+     * This messages is called when player has reset a player log of the limited shop.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param playerToReset Player who has been reset.
+     * @return The message in a specific language.
+     */
+    String getLimitedShopReset(LimitedShop limitedShop, @Optional OfflinePlayer playerToReset);
+
+    /**
+     * This message is called when a player try to do an action with a player that have never played before on the
+     * server.
+     *
+     * @param playerName Name of the player that have never played on the server.
+     * @return The message in a specific language.
+     */
+    String getPlayerNeverPlayed(String playerName);
 
 }

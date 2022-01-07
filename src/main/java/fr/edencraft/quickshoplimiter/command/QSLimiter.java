@@ -6,7 +6,9 @@ import fr.edencraft.quickshoplimiter.QuickShopLimiter;
 import fr.edencraft.quickshoplimiter.lang.Language;
 import fr.edencraft.quickshoplimiter.manager.ConfigurationManager;
 import fr.edencraft.quickshoplimiter.utils.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -38,13 +40,12 @@ public class QSLimiter extends BaseCommand {
     /qsl about ..
     /qsl create ..
     /qsl delete ..
-    /qsl reset [player] -> reset manuellement le limited shop. ou reset seulement le joueur ciblé. Si le shop est
-                        en mode SERVER le player doit être vide -> erreur potentiel.
+    /qsl reset <shopID> [player] ..
     /qsl info [shopID] -> Donne les infos sur le shop ciblé/précisé.
     /qsl list [page] -> Liste de tout les limited shop dans Shops.yml. Avec précisé les infos importante de chacun.
                     Faire un système de pagination.
     /qsl modify [shopID] [limitationType] [limitAmount] [interval] [timingtype] -> Permet de modifier un limited shop.
-    /qsl see [player] -> si player est vide alors on affiche la liste des player qui on trade sur ce shop et leur
+    /qsl see [shopID] [player] -> si player est vide alors on affiche la liste des player qui on trade sur ce shop et leur
                     tradeAmount. Sinon on affiche la valeur pour le player demandé.
      */
 
@@ -53,6 +54,49 @@ public class QSLimiter extends BaseCommand {
     @CommandPermission(basePermission)
     public static void onCommand(CommandSender sender) {
         onAbout(sender);
+    }
+
+    @Subcommand("reset")
+    @CommandPermission(basePermission + ".reset")
+    @CommandCompletion("@listLimitedShopID @players")
+    public static void onReset(Player player, String shopID, @Optional String playerName) {
+        if (!CommandCompletionUtils.getAllLimitedShopID().contains(shopID)) {
+            player.sendMessage(LANGUAGE.getUnknownLimitedShopID(shopID));
+            return;
+        }
+
+        FileConfiguration storageCFG = CM.getConfigurationFile("Storage.yml");
+        LimitedShop limitedShop = ConfigurationUtils.getLimitedShop(shopID);
+        assert limitedShop != null;
+
+        if (playerName == null || playerName.isEmpty()) {
+            storageCFG.set("storage." + shopID, null);
+            player.sendMessage(LANGUAGE.getLimitedShopReset(limitedShop, null));
+        } else {
+            if (limitedShop.getLimitationType().equals(LimitationType.SERVER)) {
+                player.sendMessage(LANGUAGE.getCanNotResetForThisLimitationType(
+                        limitedShop,
+                        limitedShop.getLimitationType())
+                );
+                return;
+            }
+
+            OfflinePlayer playerToReset = Bukkit.getOfflinePlayer(playerName);
+            if (!playerToReset.hasPlayedBefore()) {
+                player.sendMessage(LANGUAGE.getPlayerNeverPlayed(playerName));
+                return;
+            }
+
+            if (!storageCFG.contains("storage." + shopID + "." + playerToReset.getUniqueId().toString() + ".traded-amount")) {
+                player.sendMessage(LANGUAGE.getPlayerDoesNotHaveTradeYet(limitedShop, playerToReset));
+                return;
+            } else {
+                storageCFG.set("storage." + shopID + "." + playerToReset.getUniqueId().toString(), null);
+            }
+            player.sendMessage(LANGUAGE.getLimitedShopReset(limitedShop, playerToReset));
+        }
+
+        CM.saveFile("Storage.yml");
     }
 
     @Subcommand("delete")
@@ -101,7 +145,7 @@ public class QSLimiter extends BaseCommand {
 
     @Subcommand("create")
     @CommandPermission(basePermission + ".create")
-    @CommandCompletion("PLAYER|SERVER @range:10000 @range:30 SECOND|MINUTE|HOUR|DAY|MONTH|YEAR")
+    @CommandCompletion("PLAYER|SERVER <limit_amount> <interval_of_DAY_or_MOUNTH_or_YEAR> DAY|MONTH|YEAR")
     public static void onCreateLimit(Player player,
                                      LimitationType limitationType,
                                      int limitAmount,
