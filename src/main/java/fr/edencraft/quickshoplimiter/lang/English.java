@@ -3,9 +3,10 @@ package fr.edencraft.quickshoplimiter.lang;
 import fr.edencraft.quickshoplimiter.utils.ColoredText;
 import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
+import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
+import java.util.Date;
 import java.util.List;
 
 public class English implements Language {
@@ -118,6 +119,117 @@ public class English implements Language {
     public String getPlayerNeverPlayed(String playerName) {
         return prefix + new ColoredText(
                 "&cPlayer &6" + playerName + " &chas never played on the server."
+        ).treat();
+    }
+
+    @Override
+    public String getLimitedShopInfo(LimitedShop limitedShop) {
+        Date lastReset = new Date(limitedShop.getLastReset());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("&d&m                                                                     \n");
+        stringBuilder.append("&a• ID: &e").append(limitedShop.getShopID()).append("\n");
+        stringBuilder.append("&a• Limit infos:\n");
+        stringBuilder.append("  &6→ Type: &e").append(limitedShop.getLimitationType().name()).append("\n");
+        stringBuilder.append("  &6→ Amount: &e").append(limitedShop.getLimitAmount()).append("\n");
+        stringBuilder.append("&a• Reset infos:\n");
+        stringBuilder.append("  &6→ Every  &e").append(limitedShop.getInterval()).append(" ")
+                .append(limitedShop.getTimingType().name()).append("\n");
+        stringBuilder.append("  &6→ Last reset: &e").append(lastReset.toString()).append("\n");
+        stringBuilder.append("&a• Location info:\n");
+        stringBuilder.append("  &6→ World: &e").append(limitedShop.getShop().getLocation().getWorld().getName())
+                .append("\n");
+        stringBuilder.append("  &6→ x: &e").append(limitedShop.getShop().getLocation().getBlockX()).append("\n");
+        stringBuilder.append("  &6→ y: &e").append(limitedShop.getShop().getLocation().getBlockY()).append("\n");
+        stringBuilder.append("  &6→ z: &e").append(limitedShop.getShop().getLocation().getBlockZ()).append("\n");
+        stringBuilder.append("&d&m                                                                     ");
+
+        return new ColoredText(stringBuilder.toString()).treat();
+    }
+
+    @Override
+    public String getConsoleNeedToGiveShopID() {
+        return prefix + new ColoredText(
+                "&cAs console a shop ID need to be specified."
+        ).treat();
+    }
+
+    @Override
+    public String getModifyCommandSyntax() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("&aTo modify a limited shop, you can use:\n");
+        stringBuilder.append("  &6→ /qsl modify &elimitationtype &d<shopID> <LimitationType>\n");
+        stringBuilder.append("  &6→ /qsl modify &elimitamount &d<shopID> <Amount>\n");
+        stringBuilder.append("  &6→ /qsl modify &einterval &d<shopID> <Interval>\n");
+        stringBuilder.append("  &6→ /qsl modify &etimingtype &d<shopID> <TimingType>\n");
+
+        return new ColoredText(stringBuilder.toString()).treat();
+    }
+
+    @Override
+    public String getAlreadyThisLimitationType(LimitedShop limitedShop, LimitationType newLimitationType) {
+        return prefix + new ColoredText(
+                "&6This limit is already in &e" + newLimitationType.name() + " &6mode for the shop n°&e" +
+                        limitedShop.getShopID() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getLimitationTypeModified(LimitedShop limitedShop,
+                                            LimitationType oldLimitationType,
+                                            LimitationType newLimitationType) {
+        return prefix + new ColoredText(
+                "&aThe limitation type for the shop n°&e" + limitedShop.getShopID() + " &6aas been modified to &e" +
+                        newLimitationType.name() + " &ainstead of &c" + oldLimitationType.name() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getAlreadyThisLimitAmount(LimitedShop limitedShop, int limitAmount) {
+        return prefix + new ColoredText(
+                "&6This limit is already set to a limit amount of &e" + limitAmount + " &6for the shop n°&e" +
+                        limitedShop.getShopID() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getLimitAmountModified(LimitedShop limitedShop, int oldLimitAmount, int newLimitAmount) {
+        return prefix + new ColoredText(
+                "&aThe limit amount of the shop n°&e" + limitedShop.getShopID() + " &ahas been modified to &e" +
+                        newLimitAmount + "&ainstead of &c" + oldLimitAmount + "&a."
+        ).treat();
+    }
+
+    @Override
+    public String getAlreadyThisInterval(LimitedShop limitedShop, int interval) {
+        return prefix + new ColoredText(
+                "&6This limit already has an interval of &e" + interval + " &6for the shop n°&e" +
+                        limitedShop.getShopID() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getIntervalModified(LimitedShop limitedShop, int oldInterval, int newInterval) {
+        return prefix + new ColoredText(
+                "&aThe interval for the shop n°&e" + limitedShop.getShopID() + " &ahas been modified to &e" +
+                        oldInterval + " &ainstead of &c" +  newInterval + "&a."
+        ).treat();
+    }
+
+    @Override
+    public String getAlreadyThisTimingType(LimitedShop limitedShop, TimingType timingType) {
+        return prefix + new ColoredText(
+                "&6the limit already has the timing type &e" + timingType.name() + " &6for the shop n°&e" +
+                        limitedShop.getShopID() + "&6."
+        ).treat();
+    }
+
+    @Override
+    public String getTimingTypeModified(LimitedShop limitedShop, TimingType oldTimingType, TimingType newTimingType) {
+        return prefix + new ColoredText(
+                "&aThe timing type for the shop n°&e" + limitedShop.getShopID() + " &ahas been modified to &e" +
+                        newTimingType.name() + " &ainstead of &c" + oldTimingType.name() + "&a."
         ).treat();
     }
 

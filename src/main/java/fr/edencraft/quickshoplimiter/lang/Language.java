@@ -4,6 +4,7 @@ import co.aikar.commands.annotation.Optional;
 import fr.edencraft.quickshoplimiter.QuickShopLimiter;
 import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
+import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -129,5 +130,114 @@ public interface Language {
      * @return The message in a specific language.
      */
     String getPlayerNeverPlayed(String playerName);
+
+    /**
+     * This message is called when a player want to display information about a {@link LimitedShop}.
+     *
+     * @param limitedShop The limited shop to display.
+     * @return The message in a specific language.
+     */
+    String getLimitedShopInfo(LimitedShop limitedShop);
+
+    /**
+     * This message is called when console try to use a command without specified a shop ID.
+     *
+     * @return The message in a specific language.
+     */
+    String getConsoleNeedToGiveShopID();
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} enter an incomplete command
+     * on <b>/qsl modify</b>.
+     *
+     * @return The message in a specific language.
+     */
+    String getModifyCommandSyntax();
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} try to replace the {@link LimitationType}
+     * of a shop by the same {@link LimitationType}.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param newLimitationType The new LimitationType.
+     * @return The message in a specific language.
+     */
+    String getAlreadyThisLimitationType(LimitedShop limitedShop, LimitationType newLimitationType);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} has modified with success the
+     * {@link LimitationType} of a {@link LimitedShop}.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param oldLimitationType The old LimitationType.
+     * @param newLimitationType The new LimitationType.
+     * @return The message in a specific language.
+     */
+    String getLimitationTypeModified(LimitedShop limitedShop,
+                                     LimitationType oldLimitationType,
+                                     LimitationType newLimitationType);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} try to replace the
+     * <b>limit amount</b> of a shop by the same <b>limit amount</b>.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param limitAmount The new limit amount.
+     * @return The message in a specific language.
+     */
+    String getAlreadyThisLimitAmount(LimitedShop limitedShop, int limitAmount);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} has modified with success the
+     * <b>limit amount</b> of {@link LimitedShop}.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param oldLimitAmount The old limit amount.
+     * @param newLimitAmount The new limit amount.
+     * @return The message in a specific language.
+     */
+    String getLimitAmountModified(LimitedShop limitedShop, int oldLimitAmount, int newLimitAmount);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} try to replace the <b>interval</b> of
+     * a shop by the same <b>interval</b>.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param interval The {@link LimitedShop } interval.
+     * @return The message in a specific language.
+     */
+    String getAlreadyThisInterval(LimitedShop limitedShop, int interval);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} has modified with success the
+     * <b>interval</b> of a {@link LimitedShop}.
+     *
+     * @param limitedShop  Concerned limited shop.
+     * @param oldInterval The old interval.
+     * @param newInterval The new interval.
+     * @return The message in a specific language.
+     */
+    String getIntervalModified(LimitedShop limitedShop, int oldInterval, int newInterval);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} try to replace the {@link TimingType} of a
+     * shop by the same {@link TimingType}.
+     * 
+     * @param limitedShop Concerned limited shop.
+     * @param timingType The old timing type.
+     * @return The message in a specific language.
+     */
+    String getAlreadyThisTimingType(LimitedShop limitedShop, TimingType timingType);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} has modified with success the
+     * {@link TimingType} of a {@link LimitedShop}.
+     *
+     * @param limitedShop Concerned limited shop.
+     * @param oldTimingType The old timing type.
+     * @param newTimingType The new timing type.
+     * @return The message in a specific language.
+     */
+    String getTimingTypeModified(LimitedShop limitedShop, TimingType oldTimingType, TimingType newTimingType);
 
 }
