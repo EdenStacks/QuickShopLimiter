@@ -6,6 +6,7 @@ import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
 import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -239,5 +240,14 @@ public interface Language {
      * @return The message in a specific language.
      */
     String getTimingTypeModified(LimitedShop limitedShop, TimingType oldTimingType, TimingType newTimingType);
+
+    /**
+     * This message is called when a {@link org.bukkit.command.CommandSender} try to use a forbidden command.
+     *
+     * @param commandSender The {@link CommandSender} who send the command.
+     * @param command The forbidden command.
+     * @return The message in a specific language.
+     */
+    String getCommandForbidden(CommandSender commandSender, String command);
 
 }

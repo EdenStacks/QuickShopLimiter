@@ -1,5 +1,6 @@
 package fr.edencraft.quickshoplimiter.manager;
 
+import fr.edencraft.quickshoplimiter.listener.ReloadQuickShop;
 import fr.edencraft.quickshoplimiter.listener.quickshop.ShopDelete;
 import fr.edencraft.quickshoplimiter.listener.quickshop.ShopPurchase;
 import fr.edencraft.quickshoplimiter.listener.quickshoplimiter.LimitedShopPurchase;
@@ -15,6 +16,7 @@ public class ListenerManager {
         pm.registerEvents(new ShopPurchase(), plugin);
         pm.registerEvents(new LimitedShopPurchase(), plugin);
         pm.registerEvents(new ShopDelete(), plugin);
+        pm.registerEvents(new ReloadQuickShop(), plugin);
 
     }
 }

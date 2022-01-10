@@ -329,7 +329,7 @@ public class QSLimiter extends BaseCommand {
         cmdMessage.append("╔══════════════════╗\n");
         cmdMessage.append("║ QuickShopLimiter ║\n");
         cmdMessage.append("╟──────────────────╢\n");
-        cmdMessage.append("║ Version: 1.0.0   ║\n");
+        cmdMessage.append("║ Version: 1.0.1   ║\n");
         cmdMessage.append("║                  ║\n");
         cmdMessage.append("║ Made with &4♥&r      ║\n");
         cmdMessage.append("║ &rby NayeOne.      ║\n");
@@ -337,7 +337,7 @@ public class QSLimiter extends BaseCommand {
 
         StringBuilder playerMessage = new StringBuilder();
         playerMessage.append("&aQuickShopLimiter\n");
-        playerMessage.append("&fVersion: &e1.0.0\n");
+        playerMessage.append("&fVersion: &e1.0.1\n");
         playerMessage.append("&fBy: &eNayeOne\n");
 
         if (sender instanceof Player){

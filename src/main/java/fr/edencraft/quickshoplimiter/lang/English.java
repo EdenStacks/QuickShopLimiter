@@ -5,6 +5,8 @@ import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
 import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Date;
 import java.util.List;
@@ -230,6 +232,17 @@ public class English implements Language {
         return prefix + new ColoredText(
                 "&aThe timing type for the shop n°&e" + limitedShop.getShopID() + " &ahas been modified to &e" +
                         newTimingType.name() + " &ainstead of &c" + oldTimingType.name() + "&a."
+        ).treat();
+    }
+
+    @Override
+    public String getCommandForbidden(CommandSender commandSender, String command) {
+        if (!(commandSender instanceof Player)) {
+            command = "/" + command;
+        }
+
+        return prefix + new ColoredText(
+                "&cYou can't use &e" + command + " &cbecause this one is dangerous for all limited shops."
         ).treat();
     }
 

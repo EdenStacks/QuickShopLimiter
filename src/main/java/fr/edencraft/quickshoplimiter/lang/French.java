@@ -5,6 +5,8 @@ import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
 import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Date;
 import java.util.List;
@@ -241,4 +243,14 @@ public class French implements Language {
         ).treat();
     }
 
+    @Override
+    public String getCommandForbidden(CommandSender commandSender, String command) {
+        if (!(commandSender instanceof Player)) {
+            command = "/" + command;
+        }
+
+        return prefix + new ColoredText(
+                "&cVous ne pouvez pas utiliser &e" + command + " &ccar celle-ci est dangereuse pour les limites de shop."
+        ).treat();
+    }
 }
