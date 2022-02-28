@@ -44,7 +44,7 @@ public class ResetChecker extends BukkitRunnable {
 
                 case DAY -> {
                     long millsDayValue = 1000 * 60 * 60 * 24;
-                    long timeToWait = millsDayValue * interval;
+                    long timeToWait = millsDayValue * interval - 60000;
 
                     if (lastReset + timeToWait <= actualTime) {
                         resetLimitedShopLimit(limitedShop);

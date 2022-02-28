@@ -1,7 +1,7 @@
 name: QuickShopLimiter
 version: '${project.version}'
 main: fr.edencraft.quickshoplimiter.QuickShopLimiter
-api-version: 1.17
+api-version: 1.18
 prefix: QuickShopLimiter
 depend: [ QuickShop ]
 authors: [ NayeOne ]
