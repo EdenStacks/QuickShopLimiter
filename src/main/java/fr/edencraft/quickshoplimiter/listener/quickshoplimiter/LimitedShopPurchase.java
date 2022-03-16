@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.maxgamer.quickshop.event.ShopPurchaseEvent;
+import org.maxgamer.quickshop.api.event.ShopPurchaseEvent;
 
 import java.util.UUID;
 

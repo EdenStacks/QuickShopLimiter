@@ -4,7 +4,7 @@ import fr.edencraft.quickshoplimiter.QuickShopLimiter;
 import fr.edencraft.quickshoplimiter.manager.ConfigurationManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.maxgamer.quickshop.shop.Shop;
+import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 /**
  * This class define a {@link LimitedShop}.
- * It basically a {@link Shop} with additional values.
+ * It is basically a {@link Shop} with additional values.
  */
 public class LimitedShop {
 
@@ -34,7 +34,7 @@ public class LimitedShop {
 
     /**
      * Build a {@link LimitedShop}.
-     * It useful because it combine {@link Shop} and the limit system of this plugin.
+     * It is useful because it combines {@link Shop} and the limit system of this plugin.
      *
      * @param shop The {@link Shop} who has a limit.
      * @param shopSection The {@link ConfigurationSection} of the {@link LimitedShop}.

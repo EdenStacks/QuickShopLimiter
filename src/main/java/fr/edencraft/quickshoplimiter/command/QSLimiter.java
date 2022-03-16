@@ -19,7 +19,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import org.maxgamer.quickshop.api.QuickShopAPI;
-import org.maxgamer.quickshop.shop.Shop;
+import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.Collections;
 
@@ -28,6 +28,7 @@ public class QSLimiter extends BaseCommand {
 
     private final static Language LANGUAGE = QuickShopLimiter.getINSTANCE().getLanguage();
     private final static ConfigurationManager CM = QuickShopLimiter.getINSTANCE().getConfigurationManager();
+    private final static QuickShopAPI QUICK_SHOP_API = QuickShopLimiter.getINSTANCE().getQuickShopAPI();
 
     private static final String basePermission = "quickshoplimiter.command";
 
@@ -273,8 +274,7 @@ public class QSLimiter extends BaseCommand {
         if (targetBlock.getState() instanceof Sign) targetBlock = getAttachedChest((Sign) targetBlock.getState());
         assert targetBlock != null;
 
-        assert QuickShopAPI.getShopAPI() != null;
-        Shop shop = QuickShopAPI.getShopAPI().getShop(targetBlock).get();
+        Shop shop = QUICK_SHOP_API.getShopManager().getShop(targetBlock.getLocation());
         if (ConfigurationUtils.isLimitedShop(shop)) {
             player.sendMessage(LANGUAGE.getShopAlreadyHasLimit());
             return;
@@ -329,7 +329,7 @@ public class QSLimiter extends BaseCommand {
         cmdMessage.append("╔══════════════════╗\n");
         cmdMessage.append("║ QuickShopLimiter ║\n");
         cmdMessage.append("╟──────────────────╢\n");
-        cmdMessage.append("║ Version: 1.1.0   ║\n");
+        cmdMessage.append("║ Version: 2.0.0   ║\n");
         cmdMessage.append("║                  ║\n");
         cmdMessage.append("║ Made with &4♥&r      ║\n");
         cmdMessage.append("║ &rby NayeOne.      ║\n");
@@ -337,7 +337,7 @@ public class QSLimiter extends BaseCommand {
 
         StringBuilder playerMessage = new StringBuilder();
         playerMessage.append("&aQuickShopLimiter\n");
-        playerMessage.append("&fVersion: &e1.1.0\n");
+        playerMessage.append("&fVersion: &e2.0.0\n");
         playerMessage.append("&fBy: &eNayeOne\n");
 
         if (sender instanceof Player){
@@ -367,7 +367,7 @@ public class QSLimiter extends BaseCommand {
 
     /**
      * @param targetBlock The targetBlock to check.
-     * @return true if it correspond to a valid {@link org.maxgamer.quickshop.shop.Shop} else false.
+     * @return true if it correspond to a valid {@link Shop} else false.
      */
     private static boolean isValidTargetBlock(Player player, Block targetBlock) {
         if (targetBlock == null) {
@@ -382,9 +382,9 @@ public class QSLimiter extends BaseCommand {
 
         if (targetBlock.getState() instanceof Sign) {
             targetBlock = getAttachedChest((Sign) targetBlock.getState());
+            assert targetBlock != null;
 
-            assert QuickShopAPI.getShopAPI() != null;
-            if (QuickShopAPI.getShopAPI().getShop(targetBlock).isEmpty()) {
+            if (QUICK_SHOP_API.getShopManager().getShop(targetBlock.getLocation()) == null) {
                 player.sendMessage(LANGUAGE.getLookShopSign());
                 return false;
             }
@@ -406,15 +406,19 @@ public class QSLimiter extends BaseCommand {
             block = getAttachedChest((Sign) block.getState());
         }
 
-        assert QuickShopAPI.getShopAPI() != null;
-        boolean isEmpty = QuickShopAPI.getShopAPI().getShop(block).isEmpty();
+        if (block == null) {
+            player.sendMessage(LANGUAGE.getUnableToLoadShop());
+            return null;
+        }
+
+        boolean isEmpty = QUICK_SHOP_API.getShopManager().getShop(block.getLocation()) == null;
 
         if (isEmpty) {
             player.sendMessage(LANGUAGE.getUnableToLoadShop());
             return null;
         }
 
-        Shop shop = QuickShopAPI.getShopAPI().getShop(block).get();
+        Shop shop = QUICK_SHOP_API.getShopManager().getShop(block.getLocation());
         if (!ConfigurationUtils.isLimitedShop(shop)) {
             player.sendMessage(LANGUAGE.getNotALimitedShop());
             return null;

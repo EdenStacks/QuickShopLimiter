@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import org.maxgamer.quickshop.event.ShopPurchaseEvent;
+import org.maxgamer.quickshop.api.event.ShopPurchaseEvent;
 
 import java.util.UUID;
 

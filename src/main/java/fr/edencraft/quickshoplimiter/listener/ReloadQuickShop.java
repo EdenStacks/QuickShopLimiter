@@ -12,8 +12,11 @@ public class ReloadQuickShop implements Listener {
 
     private final Language language = QuickShopLimiter.getINSTANCE().getLanguage();
 
+    // This is probably fixed with all changes on v5 and new method of getting API.
+    // Will be test for next version of QSL.
+
     /**
-     * We listen this event because after the reload the {@link org.maxgamer.quickshop.api.QuickShopAPI} is null.
+     * We listen this event because after reload the {@link org.maxgamer.quickshop.api.QuickShopAPI} is null.
      * So we cancel this event.
      *
      * @param event ServerCommandEvent.
@@ -28,7 +31,7 @@ public class ReloadQuickShop implements Listener {
     }
 
     /**
-     * We listen this event because after the reload the {@link org.maxgamer.quickshop.api.QuickShopAPI} is null.
+     * We listen this event because after reload the {@link org.maxgamer.quickshop.api.QuickShopAPI} is null.
      * So we cancel this event.
      *
      * @param event PlayerCommandPreprocessEvent.

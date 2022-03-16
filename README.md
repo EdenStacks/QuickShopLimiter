@@ -1,11 +1,11 @@
-# 📊 QuickShopLimiter V1.1.0 📊
+# 📊 QuickShopLimiter V2.0.0 📊
 
 This plugin allows setting limit on QuickShop shop's.
 In this version, the plugin check to reset shops at 6AM. Be sure
 that your server is on at this moment. I am going to add this 
 parameter in config.yml.
 
-Tested on paper 1.18.1 with QuickShop v4.0.9.7.
+Tested on paper 1.18.2 with QuickShop v5.1.0.5.
 
 
 ## Dependency

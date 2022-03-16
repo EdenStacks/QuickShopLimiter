@@ -6,8 +6,8 @@ import fr.edencraft.quickshoplimiter.utils.ConfigurationUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.maxgamer.quickshop.event.ShopDeleteEvent;
-import org.maxgamer.quickshop.shop.Shop;
+import org.maxgamer.quickshop.api.event.ShopDeleteEvent;
+import org.maxgamer.quickshop.api.shop.Shop;
 
 public class ShopDelete implements Listener {
 

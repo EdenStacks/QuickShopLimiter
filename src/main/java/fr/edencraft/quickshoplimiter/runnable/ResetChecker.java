@@ -17,8 +17,8 @@ import java.util.logging.Level;
 /**
  * /!\ This Runnable need to bee run one time every minute only ! /!\
  *
- * It basically check if it's time to reset shops limit.
- * For now it try to clear at 6AM all shops that can be cleared.
+ * It is basically check if it's time to reset shops limit.
+ * For now, it tries to clear at 6AM all shops that can be cleared.
  */
 public class ResetChecker extends BukkitRunnable {
 

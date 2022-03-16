@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.maxgamer.quickshop.event.ShopPurchaseEvent;
-import org.maxgamer.quickshop.shop.Shop;
+import org.maxgamer.quickshop.api.event.ShopPurchaseEvent;
+import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.UUID;
 

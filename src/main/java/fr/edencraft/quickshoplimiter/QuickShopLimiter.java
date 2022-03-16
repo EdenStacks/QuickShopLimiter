@@ -8,8 +8,11 @@ import fr.edencraft.quickshoplimiter.runnable.ResetChecker;
 import fr.edencraft.quickshoplimiter.utils.ColoredText;
 import fr.edencraft.quickshoplimiter.utils.ConfigurationUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.maxgamer.quickshop.api.QuickShopAPI;
+import org.maxgamer.quickshop.util.GameVersion;
 
 import java.util.logging.Level;
 
@@ -27,12 +30,27 @@ public final class QuickShopLimiter extends JavaPlugin {
     // INSTANCE
     private static QuickShopLimiter INSTANCE;
 
+    // API
+    private QuickShopAPI quickShopAPI;
+
     @Override
     public void onEnable() {
 
         long delay = System.currentTimeMillis();
 
         INSTANCE = this;
+
+        Plugin plugin = Bukkit.getPluginManager().getPlugin("QuickShop");
+        if (plugin == null) {
+            log(Level.SEVERE, "QuickShop is not installed or QuickShopLimiter can not communicate with it. " +
+                    "QuickShopLimiter can not run, disabling ...");
+            onDisable();
+        } else {
+            this.quickShopAPI = (QuickShopAPI) plugin;
+            String version = plugin.getDescription().getVersion();
+            String name = plugin.getName();
+            log(Level.INFO, "Connected to " + name + " " + version);
+        }
 
         this.configurationManager = new ConfigurationManager(this);
         this.configurationManager.setupFiles();
@@ -78,5 +96,9 @@ public final class QuickShopLimiter extends JavaPlugin {
 
     public void setResetCheckerTriggered(boolean resetCheckerTriggered) {
         this.resetCheckerTriggered = resetCheckerTriggered;
+    }
+
+    public QuickShopAPI getQuickShopAPI() {
+        return quickShopAPI;
     }
 }

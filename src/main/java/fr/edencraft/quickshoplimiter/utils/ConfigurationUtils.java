@@ -11,7 +11,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Nullable;
 import org.maxgamer.quickshop.api.QuickShopAPI;
-import org.maxgamer.quickshop.shop.Shop;
+import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 public class ConfigurationUtils {
 
     private static final ConfigurationManager CM = QuickShopLimiter.getINSTANCE().getConfigurationManager();
+    private static final QuickShopAPI QUICK_SHOP_API = QuickShopLimiter.getINSTANCE().getQuickShopAPI();
 
     /**
      * This method return a configuration section depending on a file configuration and a path.
@@ -153,9 +154,8 @@ public class ConfigurationUtils {
 
             Location shopLocation = new Location(world, x, y, z);
 
-            assert QuickShopAPI.getShopAPI() != null;
-            if (QuickShopAPI.getShopAPI().getShop(shopLocation).isPresent()) {
-                Shop shop = QuickShopAPI.getShopAPI().getShop(shopLocation).get();
+            if (QUICK_SHOP_API.getShopManager().getShop(shopLocation) != null) {
+                Shop shop = QUICK_SHOP_API.getShopManager().getShop(shopLocation);
                 list.add(new LimitedShop(shop, shopSection));
             }
         });
