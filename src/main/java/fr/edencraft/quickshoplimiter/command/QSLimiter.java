@@ -51,6 +51,34 @@ public class QSLimiter extends BaseCommand {
         onAbout(sender);
     }
 
+    @Subcommand("modify permission")
+    @CommandPermission(basePermission + ".modify.permission")
+    @CommandCompletion("@listLimitedShopID permission")
+    public static void onModifyPermission(CommandSender sender, String shopID, String permission) {
+        if (!CommandCompletionUtils.getAllLimitedShopID().contains(shopID)) {
+            sender.sendMessage(LANGUAGE.getUnknownLimitedShopID(shopID));
+            return;
+        }
+
+        LimitedShop limitedShop = ConfigurationUtils.getLimitedShop(shopID);
+        assert limitedShop != null;
+
+        if (limitedShop.getPermission() != null && limitedShop.getPermission().equals(permission)) {
+            sender.sendMessage(LANGUAGE.getShopAlreadyHasThisPermission(permission));
+            return;
+        }
+
+        if (permission.equalsIgnoreCase("none") || permission.equalsIgnoreCase("null")) {
+            sender.sendMessage(LANGUAGE.getRemovedShopPermission(limitedShop.getPermission()));
+            limitedShop.getShopSection().set("permission", null);
+        } else {
+            sender.sendMessage(LANGUAGE.getUpdatedShopPermission(limitedShop.getPermission(), permission));
+            limitedShop.getShopSection().set("permission", permission);
+        }
+
+        CM.saveFile("Shops.yml");
+    }
+
     @Subcommand("modify timingtype")
     @CommandPermission(basePermission + ".modify.timingtype")
     @CommandCompletion("@listLimitedShopID DAY|MONTH|YEAR")
@@ -329,7 +357,7 @@ public class QSLimiter extends BaseCommand {
         cmdMessage.append("╔══════════════════╗\n");
         cmdMessage.append("║ QuickShopLimiter ║\n");
         cmdMessage.append("╟──────────────────╢\n");
-        cmdMessage.append("║ Version: 2.0.0   ║\n");
+        cmdMessage.append("║ Version: 2.1.0   ║\n");
         cmdMessage.append("║                  ║\n");
         cmdMessage.append("║ Made with &4♥&r      ║\n");
         cmdMessage.append("║ &rby NayeOne.      ║\n");
@@ -337,7 +365,7 @@ public class QSLimiter extends BaseCommand {
 
         StringBuilder playerMessage = new StringBuilder();
         playerMessage.append("&aQuickShopLimiter\n");
-        playerMessage.append("&fVersion: &e2.0.0\n");
+        playerMessage.append("&fVersion: &e2.1.0\n");
         playerMessage.append("&fBy: &eNayeOne\n");
 
         if (sender instanceof Player){
@@ -353,7 +381,7 @@ public class QSLimiter extends BaseCommand {
      * @return The block attached to the sign. Null if it's not a chest.
      */
     @Nullable
-    private static Block getAttachedChest(Sign sign) {
+    public static Block getAttachedChest(Sign sign) {
         Block signBlock = sign.getBlock();
         WallSign signData = (WallSign) signBlock.getState().getBlockData();
         BlockFace attached = signData.getFacing().getOppositeFace();

@@ -2,6 +2,7 @@ package fr.edencraft.quickshoplimiter.listener.quickshoplimiter;
 
 import fr.edencraft.quickshoplimiter.QuickShopLimiter;
 import fr.edencraft.quickshoplimiter.event.LimitedShopPurchaseEvent;
+import fr.edencraft.quickshoplimiter.lang.Language;
 import fr.edencraft.quickshoplimiter.manager.ConfigurationManager;
 import fr.edencraft.quickshoplimiter.utils.LimitationType;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
@@ -17,11 +18,25 @@ import java.util.UUID;
 
 public class LimitedShopPurchase implements Listener {
 
+    private final static Language LANGUAGE = QuickShopLimiter.getINSTANCE().getLanguage();
+
     @EventHandler
     public void onLimitedShopPurchaseEvent(LimitedShopPurchaseEvent event) {
         UUID purchaser = event.getPurchaser();
         LimitedShop limitedShop = event.getLimitedShop();
         ShopPurchaseEvent shopPurchaseEvent = event.getShopPurchaseEvent();
+
+        String permission = limitedShop.getPermission();
+        if (permission != null) {
+            Player player = Bukkit.getOfflinePlayer(purchaser).getPlayer();
+            assert player != null;
+            if (!player.hasPermission(permission)) {
+                player.sendMessage(LANGUAGE.getNeededPermission(permission));
+                event.setCancelled(true);
+                return;
+            }
+        }
+
 
         int tradedAmount = 0;
         if (limitedShop.getLimitationType().equals(LimitationType.PLAYER)) {

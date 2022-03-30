@@ -4,6 +4,7 @@ import fr.edencraft.quickshoplimiter.QuickShopLimiter;
 import fr.edencraft.quickshoplimiter.manager.ConfigurationManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.jetbrains.annotations.Nullable;
 import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.ArrayList;
@@ -67,6 +68,14 @@ public class LimitedShop {
 
         this.interval = shopSection.getInt("reset.interval");
         this.lastReset = shopSection.getLong("reset.last-reset");
+    }
+
+    /**
+     * @return the permission to use this {@link LimitedShop} or null if no permission needed.
+     */
+    @Nullable
+    public String getPermission() {
+        return shopSection.getString("permission");
     }
 
     /**

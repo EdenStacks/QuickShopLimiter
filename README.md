@@ -1,4 +1,4 @@
-# 📊 QuickShopLimiter V2.0.0 📊
+# 📊 QuickShopLimiter V2.1.0 📊
 
 This plugin allows setting limit on QuickShop shop's.
 In this version, the plugin check to reset shops at 6AM. Be sure
@@ -48,6 +48,7 @@ time-zone: Europe/Paris
 - `quickshoplimiter.command.modify.limitamount` Allow modifying limit amount of shop.
 - `quickshoplimiter.command.modify.interval` Allow modifying interval of shop.
 - `quickshoplimiter.command.modify.limittype` Allow modifying limit type of shop.
+- `quickshoplimiter.command.modify.permission` Allow modifying permission of shop.
 
 ## Authors
 
