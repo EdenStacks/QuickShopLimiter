@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("StringBufferReplaceableByString")
 public class English implements Language {
 
 	@Override
@@ -180,7 +181,7 @@ public class English implements Language {
 		stringBuilder.append("&a• Reset infos:\n");
 		stringBuilder.append("  &6→ Every  &e").append(limitedShop.getInterval()).append(" ")
 				.append(limitedShop.getTimingType().name()).append("\n");
-		stringBuilder.append("  &6→ Last reset: &e").append(lastReset.toString()).append("\n");
+		stringBuilder.append("  &6→ Last reset: &e").append(lastReset).append("\n");
 		stringBuilder.append("&a• Location info:\n");
 		stringBuilder.append("  &6→ World: &e").append(limitedShop.getShop().getLocation().getWorld().getName())
 				.append("\n");

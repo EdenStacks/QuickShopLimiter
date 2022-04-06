@@ -6,7 +6,7 @@
 
     <groupId>fr.edencraft</groupId>
     <artifactId>QuickShopLimiter</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <packaging>jar</packaging>
 
     <name>QuickShopLimiter</name>
@@ -25,7 +25,8 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <outputDirectory>D:/Desktop/ServeursDev/QuickShopLimiter-1.18.2/plugins</outputDirectory>
+<!--                    <outputDirectory>D:/Desktop/ServeursDev/QuickShopLimiter-1.18.2/plugins</outputDirectory>-->
+                    <outputDirectory>/Users/ludovicanselin/Documents/EdenCraft/ServeurDev/1.18.2-QuickShopLimiter/plugins</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

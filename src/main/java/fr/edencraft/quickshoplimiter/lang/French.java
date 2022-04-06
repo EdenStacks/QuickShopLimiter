@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("StringBufferReplaceableByString")
 public class French implements Language {
 
 	@Override
@@ -180,7 +181,7 @@ public class French implements Language {
 		stringBuilder.append("&a• Infos de remise à zéro:\n");
 		stringBuilder.append("  &6→ Tout les  &e").append(limitedShop.getInterval()).append(" ")
 				.append(limitedShop.getTimingType().name()).append("\n");
-		stringBuilder.append("  &6→ Dernière remise à zéro: &e").append(lastReset.toString()).append("\n");
+		stringBuilder.append("  &6→ Dernière remise à zéro: &e").append(lastReset).append("\n");
 		stringBuilder.append("&a• Info sur la location:\n");
 		stringBuilder.append("  &6→ Monde: &e").append(limitedShop.getShop().getLocation().getWorld().getName())
 				.append("\n");

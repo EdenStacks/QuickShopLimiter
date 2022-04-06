@@ -7,8 +7,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Nullable;
 import org.maxgamer.quickshop.api.shop.Shop;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -78,18 +76,20 @@ public class LimitedShop {
         return shopSection.getString("permission");
     }
 
-    /**
-     * @return A list of {@link UUID} corresponding to all players who has trade with this {@link LimitedShop}.
-     */
-    public List<UUID> getAllTraders() {
-        ConfigurationSection storageSection = getStorageSection();
-        assert storageSection != null;
-
-        List<UUID> uuidList = new ArrayList<>();
-
-        storageSection.getKeys(false).forEach(s -> uuidList.add(UUID.fromString(s)));
-        return uuidList;
-    }
+// --Commented out by Inspection START (06/04/2022 23:42):
+//    /**
+//     * @return A list of {@link UUID} corresponding to all players who has trade with this {@link LimitedShop}.
+//     */
+//    public List<UUID> getAllTraders() {
+//        ConfigurationSection storageSection = getStorageSection();
+//        assert storageSection != null;
+//
+//        List<UUID> uuidList = new ArrayList<>();
+//
+//        storageSection.getKeys(false).forEach(s -> uuidList.add(UUID.fromString(s)));
+//        return uuidList;
+//    }
+// --Commented out by Inspection STOP (06/04/2022 23:42)
 
     /**
      * Don't panic, if UUID isn't present in this {@link LimitedShop} it'll return 0.

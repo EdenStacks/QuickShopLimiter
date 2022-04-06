@@ -7,7 +7,6 @@ import fr.edencraft.quickshoplimiter.utils.LimitedShop;
 import fr.edencraft.quickshoplimiter.utils.TimingType;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 

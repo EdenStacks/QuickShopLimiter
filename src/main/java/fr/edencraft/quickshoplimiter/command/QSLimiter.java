@@ -23,6 +23,7 @@ import org.maxgamer.quickshop.api.shop.Shop;
 
 import java.util.Collections;
 
+@SuppressWarnings("unused")
 @CommandAlias("qslimiter|qsl|quickshoplimiter")
 public class QSLimiter extends BaseCommand {
 
@@ -216,6 +217,7 @@ public class QSLimiter extends BaseCommand {
         sender.sendMessage(LANGUAGE.getLimitedShopInfo(limitedShop));
     }
 
+    @SuppressWarnings("deprecation")
     @Subcommand("reset")
     @CommandPermission(basePermission + ".reset")
     @CommandCompletion("@listLimitedShopID @players")
@@ -247,11 +249,11 @@ public class QSLimiter extends BaseCommand {
                 return;
             }
 
-            if (!storageCFG.contains("storage." + shopID + "." + playerToReset.getUniqueId().toString() + ".traded-amount")) {
+            if (!storageCFG.contains("storage." + shopID + "." + playerToReset.getUniqueId() + ".traded-amount")) {
                 player.sendMessage(LANGUAGE.getPlayerDoesNotHaveTradeYet(limitedShop, playerToReset));
                 return;
             } else {
-                storageCFG.set("storage." + shopID + "." + playerToReset.getUniqueId().toString(), null);
+                storageCFG.set("storage." + shopID + "." + playerToReset.getUniqueId(), null);
             }
             player.sendMessage(LANGUAGE.getLimitedShopReset(limitedShop, playerToReset));
         }
@@ -357,7 +359,7 @@ public class QSLimiter extends BaseCommand {
         cmdMessage.append("╔══════════════════╗\n");
         cmdMessage.append("║ QuickShopLimiter ║\n");
         cmdMessage.append("╟──────────────────╢\n");
-        cmdMessage.append("║ Version: 2.1.0   ║\n");
+        cmdMessage.append("║ Version: 2.1.1   ║\n");
         cmdMessage.append("║                  ║\n");
         cmdMessage.append("║ Made with &4♥&r      ║\n");
         cmdMessage.append("║ &rby NayeOne.      ║\n");
@@ -365,7 +367,7 @@ public class QSLimiter extends BaseCommand {
 
         StringBuilder playerMessage = new StringBuilder();
         playerMessage.append("&aQuickShopLimiter\n");
-        playerMessage.append("&fVersion: &e2.1.0\n");
+        playerMessage.append("&fVersion: &e2.1.1\n");
         playerMessage.append("&fBy: &eNayeOne\n");
 
         if (sender instanceof Player){
@@ -383,6 +385,8 @@ public class QSLimiter extends BaseCommand {
     @Nullable
     public static Block getAttachedChest(Sign sign) {
         Block signBlock = sign.getBlock();
+        if (!(signBlock.getState().getBlockData() instanceof WallSign)) return null;
+
         WallSign signData = (WallSign) signBlock.getState().getBlockData();
         BlockFace attached = signData.getFacing().getOppositeFace();
 

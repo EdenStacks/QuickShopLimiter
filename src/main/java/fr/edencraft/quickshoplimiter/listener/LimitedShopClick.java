@@ -5,7 +5,6 @@ import fr.edencraft.quickshoplimiter.command.QSLimiter;
 import fr.edencraft.quickshoplimiter.lang.Language;
 import fr.edencraft.quickshoplimiter.utils.ConfigurationUtils;
 import fr.edencraft.quickshoplimiter.utils.LimitedShop;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;

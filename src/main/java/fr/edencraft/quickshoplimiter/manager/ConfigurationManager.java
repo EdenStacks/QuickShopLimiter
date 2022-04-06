@@ -41,6 +41,7 @@ public class ConfigurationManager {
         initNewFile("config.yml", new ConfigFiller());
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void initNewFile(String fileName, CFGFiller filler){
         File file = getFile(fileName);
         FileConfiguration fileCFG = null;
@@ -67,14 +68,6 @@ public class ConfigurationManager {
         });
     }
 
-    public void saveFile(File file) {
-        if (filesMap.containsKey(file)) {
-            try {
-                filesMap.get(file).save(file);
-            } catch (IOException ignored) {}
-        }
-    }
-
     public void saveFile(String name) {
         if (getFile(name).exists()) {
             filesMap.forEach((file, fileConfiguration) -> {
@@ -95,14 +88,6 @@ public class ConfigurationManager {
         });
     }
 
-    public void reloadFile(File file) {
-        if (filesMap.containsKey(file)) {
-            try {
-                filesMap.get(file).load(file);
-            } catch (IOException | InvalidConfigurationException ignored) {}
-        }
-    }
-
     public void reloadFile(String name) {
         if (getFile(name).exists()) {
             filesMap.forEach((file, fileConfiguration) -> {
@@ -117,10 +102,6 @@ public class ConfigurationManager {
 
     private File getFile(String fileName) {
         return new File(plugin.getDataFolder(), fileName);
-    }
-
-    private FileConfiguration getFileConfigurationFromFile(File file){
-        return filesMap.getOrDefault(file, null);
     }
 
     private void fillCFGFile(CFGFiller filler, FileConfiguration fileConfiguration){

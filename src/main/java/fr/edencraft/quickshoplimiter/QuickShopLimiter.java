@@ -10,9 +10,7 @@ import fr.edencraft.quickshoplimiter.utils.ConfigurationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 import org.maxgamer.quickshop.api.QuickShopAPI;
-import org.maxgamer.quickshop.util.GameVersion;
 
 import java.util.logging.Level;
 
@@ -58,7 +56,7 @@ public final class QuickShopLimiter extends JavaPlugin {
         new CommandManager(this);
         new ListenerManager(this);
 
-        BukkitTask resetChecker = new ResetChecker().runTaskTimerAsynchronously(this, 0, 20 * 60);
+        new ResetChecker().runTaskTimerAsynchronously(this, 0, 20 * 60);
         this.resetCheckerTriggered = false;
 
         log(Level.INFO, "QuickShopLimiter enabled. (took " + (System.currentTimeMillis() - delay) + "ms)");
