@@ -26,7 +26,7 @@ public class LimitedShopPurchase implements Listener {
         LimitedShop limitedShop = event.getLimitedShop();
         ShopPurchaseEvent shopPurchaseEvent = event.getShopPurchaseEvent();
 
-        String permission = limitedShop.getPermission();
+        String permission = limitedShop.getPermissions();
         if (permission != null) {
             Player player = Bukkit.getOfflinePlayer(purchaser).getPlayer();
             assert player != null;

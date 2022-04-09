@@ -72,7 +72,7 @@ public class LimitedShop {
      * @return the permission to use this {@link LimitedShop} or null if no permission needed.
      */
     @Nullable
-    public String getPermission() {
+    public String getPermissions() {
         return shopSection.getString("permission");
     }
 

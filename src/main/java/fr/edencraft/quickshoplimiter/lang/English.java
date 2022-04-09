@@ -170,7 +170,7 @@ public class English implements Language {
 	public String getLimitedShopInfo(LimitedShop limitedShop) {
 		Date lastReset = new Date(limitedShop.getLastReset());
 		StringBuilder stringBuilder = new StringBuilder();
-		String permission = limitedShop.getPermission() == null ? "none" : limitedShop.getPermission();
+		String permission = limitedShop.getPermissions() == null ? "none" : limitedShop.getPermissions();
 
 		stringBuilder.append("&d&m                                                                     \n");
 		stringBuilder.append("&a• ID: &e").append(limitedShop.getShopID()).append("\n");

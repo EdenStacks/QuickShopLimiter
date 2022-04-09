@@ -64,16 +64,16 @@ public class QSLimiter extends BaseCommand {
         LimitedShop limitedShop = ConfigurationUtils.getLimitedShop(shopID);
         assert limitedShop != null;
 
-        if (limitedShop.getPermission() != null && limitedShop.getPermission().equals(permission)) {
+        if (limitedShop.getPermissions() != null && limitedShop.getPermissions().equals(permission)) {
             sender.sendMessage(LANGUAGE.getShopAlreadyHasThisPermission(permission));
             return;
         }
 
         if (permission.equalsIgnoreCase("none") || permission.equalsIgnoreCase("null")) {
-            sender.sendMessage(LANGUAGE.getRemovedShopPermission(limitedShop.getPermission()));
+            sender.sendMessage(LANGUAGE.getRemovedShopPermission(limitedShop.getPermissions()));
             limitedShop.getShopSection().set("permission", null);
         } else {
-            sender.sendMessage(LANGUAGE.getUpdatedShopPermission(limitedShop.getPermission(), permission));
+            sender.sendMessage(LANGUAGE.getUpdatedShopPermission(limitedShop.getPermissions(), permission));
             limitedShop.getShopSection().set("permission", permission);
         }
 
@@ -359,7 +359,7 @@ public class QSLimiter extends BaseCommand {
         cmdMessage.append("╔══════════════════╗\n");
         cmdMessage.append("║ QuickShopLimiter ║\n");
         cmdMessage.append("╟──────────────────╢\n");
-        cmdMessage.append("║ Version: 2.1.1   ║\n");
+        cmdMessage.append("║ Version: 2.1.2   ║\n");
         cmdMessage.append("║                  ║\n");
         cmdMessage.append("║ Made with &4♥&r      ║\n");
         cmdMessage.append("║ &rby NayeOne.      ║\n");
@@ -367,7 +367,7 @@ public class QSLimiter extends BaseCommand {
 
         StringBuilder playerMessage = new StringBuilder();
         playerMessage.append("&aQuickShopLimiter\n");
-        playerMessage.append("&fVersion: &e2.1.1\n");
+        playerMessage.append("&fVersion: &e2.1.2\n");
         playerMessage.append("&fBy: &eNayeOne\n");
 
         if (sender instanceof Player){

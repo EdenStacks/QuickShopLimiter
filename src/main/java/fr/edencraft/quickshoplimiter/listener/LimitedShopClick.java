@@ -37,18 +37,24 @@ public class LimitedShopClick implements Listener {
 		if (shop == null) return;
 		if (!ConfigurationUtils.isLimitedShop(shop)) return;
 
-		ConfigurationSection limitedShopSection = ConfigurationUtils.getConfigurationSection("Shops.yml", "shops." + ConfigurationUtils.getLimitedShopID(shop));
+		ConfigurationSection limitedShopSection = ConfigurationUtils.getConfigurationSection(
+				"Shops.yml", "shops." + ConfigurationUtils.getLimitedShopID(shop)
+		);
 		assert limitedShopSection != null;
 
 		LimitedShop limitedShop = new LimitedShop(shop, limitedShopSection);
 		Player player = event.getPlayer();
 
-		String permission = limitedShop.getPermission();
-		if (permission != null) {
-			if (!player.hasPermission(permission)) {
-				player.sendMessage(LANGUAGE.getNeededPermission(permission));
-				return;
+		String permissionsString = limitedShop.getPermissions();
+		if (permissionsString != null) {
+			String[] permissions = getPermissionList(permissionsString);
+			for (String permission : permissions) {
+				if (!player.hasPermission(permission)) {
+					player.sendMessage(LANGUAGE.getNeededPermission(permission));
+					return;
+				}
 			}
+
 		}
 
 		int tradeLeft = limitedShop.getLimitAmount() - limitedShop.getTradeAmountForPlayer(player.getUniqueId());
@@ -61,6 +67,10 @@ public class LimitedShopClick implements Listener {
 	 */
 	private boolean isShopBlock(Block block) {
 		return block.getState() instanceof Sign || block.getType().equals(Material.CHEST);
+	}
+
+	private String[] getPermissionList(String permission) {
+		return permission.split(";");
 	}
 
 }
