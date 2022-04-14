@@ -26,15 +26,18 @@ public class LimitedShopPurchase implements Listener {
         LimitedShop limitedShop = event.getLimitedShop();
         ShopPurchaseEvent shopPurchaseEvent = event.getShopPurchaseEvent();
 
-        String permission = limitedShop.getPermissions();
-        if (permission != null) {
+        String permissionsString = limitedShop.getPermissions();
+        if (permissionsString != null) {
+            String[] permissions = getPermissionList(permissionsString);
             Player player = Bukkit.getOfflinePlayer(purchaser).getPlayer();
             assert player != null;
-            if (!player.hasPermission(permission)) {
-                player.sendMessage(LANGUAGE.getNeededPermission(permission));
-                event.setCancelled(true);
-                return;
+            for (String permission : permissions) {
+                if (!player.hasPermission(permission)) {
+                    player.sendMessage(LANGUAGE.getNeededPermission(permission));
+                    return;
+                }
             }
+
         }
 
 
@@ -81,6 +84,10 @@ public class LimitedShopPurchase implements Listener {
             );
         }
         cm.saveFile("Storage.yml");
+    }
+
+    private String[] getPermissionList(String permission) {
+        return permission.split(";");
     }
 
 }
