@@ -34,6 +34,7 @@ public class LimitedShopPurchase implements Listener {
             for (String permission : permissions) {
                 if (!player.hasPermission(permission)) {
                     player.sendMessage(LANGUAGE.getNeededPermission(permission));
+                    event.setCancelled(true);
                     return;
                 }
             }
